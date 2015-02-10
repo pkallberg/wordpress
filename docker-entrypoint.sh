@@ -1,16 +1,6 @@
 #!/bin/bash
 set -e
 
-if [ -n "$MYSQL_PORT_3306_TCP" ]; then
-	if [ -z "$WORDPRESS_DB_HOST" ]; then
-		WORDPRESS_DB_HOST='mysql'
-	else
-		echo >&2 'warning: both WORDPRESS_DB_HOST and MYSQL_PORT_3306_TCP found'
-		echo >&2 "  Connecting to WORDPRESS_DB_HOST ($WORDPRESS_DB_HOST)"
-		echo >&2 '  instead of the linked mysql container'
-	fi
-fi
-
 if [ -z "$WORDPRESS_DB_HOST" ]; then
 	echo >&2 'error: missing WORDPRESS_DB_HOST and MYSQL_PORT_3306_TCP environment variables'
 	echo >&2 '  Did you forget to --link some_mysql_container:mysql or set an external db'
